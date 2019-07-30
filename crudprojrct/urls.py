@@ -15,11 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 import board.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',board.views.show, name='show'),
     path('board/', include('board.urls')),
+    path('board/new/post',board.views.post, name='post'),
+    path('board/<int:board_id>', board.views.detail, name='detail'),
+    path('board/new/', board.views.new, name='new'),
+    path('board/create', board.views.create, name='create'),
+    path('<int:pk>/delete/', board.views.delete, name='delete'),
+    path('<int:pk>/edit/', board.views.edit, name='edit'),
+    path('accounts/', include('accounts.urls')),
     
 ]
+
+
+

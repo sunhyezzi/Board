@@ -10,15 +10,15 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>Blog project</title>
+    <title>Blog Template · Bootstrap</title>
 
-     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/blog/">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/blog/">
 
-     <!-- Bootstrap core CSS -->
+    <!-- Bootstrap core CSS -->
 <link href="/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
- <style type="text/css">	
+<style>
         
         .bd-placeholder-img {
           font-size: 1.125rem;
@@ -34,10 +34,9 @@
             font-size: 3.5rem;
           }
         }
-  </style>
-
-
-     <!-- Custom styles for this template -->
+      </style>
+      
+    <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="blog.css" rel="stylesheet">
@@ -51,7 +50,7 @@
         <a class="text-muted" href="#">VACATION</a>
       </div>
       <div class="col-4 text-center">
-        <h1><a class="blog-header-logo text-dark" href="{% url 'post' %}">SEONHYE'S BLOG </a></h1>
+        <h1><a class="blog-header-logo text-dark" href="#">SEONHYE'S BLOG </a></h1>
       </div>
       <div class="col-4 d-flex justify-content-end align-items-center">
         <a class="text-muted" href="#">
@@ -63,41 +62,24 @@
   </header>
 
 
-   <nav class="navbar navbar-expand-lg navbar-light bg-blue navbar-dark bg-primary">
+  <nav class="navbar navbar-expand-lg navbar-light bg-blue navbar-dark bg-primary">
       <a class="navbar-brand" href="{% url 'post' %}">blog</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'post' %}">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'new' %}">글쓰기</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}" tabindex="-1" aria-disabled="true">로그아웃</a>
-          </li>
-      </div>
     </nav>
 
-
- <div style="column-fill: balance "  class="container" >
-    <form method="POST">
-{% csrf_token %}
-<table> 
-    {{form.as_table}}
-</table>
-    <br>
-    <input class="btn btn-dark" type="submit" value="수정">
-    </form>
+<br>
+<div class="container">
+	<form action="{% url 'create' %}">
+	  <h4>제목: </h4>
+	  <input type="text" name="title">
+	  <br>
+	  <br>
+	  <h4>본문: </h4>
+	  <textarea cols=40 rows=10 name="body"></textarea>
+	  <br>
+	  <br>
+	  <input class="btn btn-dark" type="submit" value="제출하기">
+  </form>
 </div>
-
-
-   </div><!-- /.row -->
-</main><!-- /.container -->
-
-
- </body>
-</html>

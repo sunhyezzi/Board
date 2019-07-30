@@ -1,10 +1,24 @@
-<div class="container">
-    <a href="{% url 'show'%}"> 뒤로 </a>
-    <br>
-    <a href="{% url 'edit' pk=board.pk %}"> 글 수정하기 </a>
-    <h1>제목: {{ board.title }}</h1>
-    <p>내용: {{ board.body }} </p>
-    <p>등록일: {{ board.update_date}}</p>
-    <a href="{% url 'delete' pk=board.pk %}"> 삭제 </a>
-    
+<p>작성 날짜 : {{board.update_date}}</p>
+<p> 자세한 본문 : {{board.body}}</p>	<p> 자세한 본문 : {{board.body}}</p>
+<br>	<br>
+
+
+ <hr>
+  <h5>댓글</h5>
+    <form action="{% url 'detail' board.id %}"  method = "POST">
+      {% csrf_token %}
+      <div class = "form-group">{{comment_form}}</div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+<hr>
+{% for comment in comments %}
+<div class = "container jumbotron">
+    <h5 class="mt-0">{{comment.text|linebreaksbr}}</h5>
+    <hr>
 </div>
+{% endfor %}
+
+
+ <a href="{% url 'edit' pk=board.pk %}">글 수정하기</a>
+<br>
+<a href="{% url 'delete' pk=board.pk %}"> 삭제 </a> 	<a href="{% url 'delete' pk=board.pk %}"> 삭제 </a> 

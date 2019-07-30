@@ -1,26 +1,135 @@
-<style>
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Blog project</title>
 
-#title{color: darkgreen} 
-#one:visited {color: orange }
-#one:hover{color: royalblue}
-h2{text-align: right}
-#title {text-align: center}
-.container {background-color: lightgreen ; margin-left:1em ; width: 500px}
-</style>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/blog/">
+
+    <!-- Bootstrap core CSS -->
+<link href="/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
-<h1 id="title"> HELLO WORLD </h1>
-<h1 id="title"> my site </h1>
-<br><br>
-<a href="{% url 'info' %}"> information </h1>
-<h2><a id="one" href="{% url 'post' %}"><글 작성></a></h2> 
-<br><br>
-{% for board in boards.all %}
-    <div class="container" >
-        <a href="{% url 'detail' board.id %}">
-            <h1>제목: {{board.title}} </h1>
-        </a>
-        <p>내용: {{board.body}}</p>
-        <small class="text-muted">{{board.pub_date}}</small>
+<style type="text/css">	
+        
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+  
+        @media  {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+
+	/* banner */
+	.banner {position: relative; width: 680px; height: 420px; top: 50px;  margin:0 auto; padding:0; overflow: hidden;}
+	.banner ul {position: absolute; margin: 0px; padding:0; list-style: none; }
+	.banner ul li {float: left; width: 680px; height: 420px; margin:0; padding:0;}
+ </style>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script language="JavaScript">
+   
+     $(document).ready(function() {
+       var $banner = $(".banner").find("ul");
+        var $bannerWidth = $banner.children().outerWidth();//이미지의 폭
+       var $bannerHeight = $banner.children().outerHeight(); // 높이
+       var $length = $banner.children().length;//이미지의 갯수
+       var rollingId;
+        //정해진 초마다 함수 실행
+       rollingId = setInterval(function() { rollingStart(); }, 3000);//다음 이미지로 롤링 애니메이션 할 시간차
+       
+       function rollingStart() {
+         $banner.css("width", $bannerWidth * $length + "px");
+         $banner.css("height", $bannerHeight + "px");
+         //alert(bannerHeight);
+         //배너의 좌측 위치를 옮겨 준다.
+         $banner.animate({left: - $bannerWidth + "px"}, 1500, function() { //숫자는 롤링 진행되는 시간이다.
+           //첫번째 이미지를 마지막 끝에 복사(이동이 아니라 복사)해서 추가한다.
+           $(this).append("<li>" + $(this).find("li:first").html() + "</li>");
+           //뒤로 복사된 첫번재 이미지는 필요 없으니 삭제한다.
+           $(this).find("li:first").remove();
+           //다음 움직임을 위해서 배너 좌측의 위치값을 초기화 한다.
+           $(this).css("left", 0);
+           //이 과정을 반복하면서 계속 롤링하는 배너를 만들 수 있다.
+         });
+       }
+     }); 
+   //-->  
+   </script>
+
+      
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="blog.css" rel="stylesheet">
+  </head>
+  <body>
+       <br>
+    <div class="container">
+  <header class="blog-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div class="col-4 pt-1">
+        <a class="text-muted" href="#">VACATION</a>
+      </div>
+      <div class="col-4 text-center">
+        <h1><a class="blog-header-logo text-dark" href="{% url 'post' %}">SEONHYE'S BLOG </a></h1>
+      </div>
     </div>
-{%endfor%}
+  </header>
+
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-blue navbar-dark bg-primary">
+      <a class="navbar-brand" href="{% url 'post' %}">blog</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'show' %}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'signup' %}" tabindex="-1" aria-disabled="true" > 회원가입</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}" tabindex="-1" aria-disabled="true">로그인</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}" tabindex="-1" aria-disabled="true">로그아웃</a>
+          </li>
+      </div>
+    </nav>
+
+    <div class="banner">
+      <ul>
+        <li><img src="data:image/png;base64,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" width="500" height="200px"></li>
+        <li><img src="data:image/png;base64,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" width="600" height="200px"></li>
+        <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbaFdzaFzNdzwv6wQNAol21-tr6J0bn7YBbwztg-p5R_JUaciiew" width="500" height="200px"></li>
+        <li><img src="https://images-na.ssl-images-amazon.com/images/I/71R0LaEOOXL.jpg" width="500" height="200px"></li>
+      </ul>
+    </div>
+    
+    <form id="logout" method="POST" action="{% url 'logout' %}">
+        {% csrf_token %} <input type="hidden" />
+    </form>
+<br><br>
+<h1>로그인 하세요^^ </h1>
+</body>
+</html>
+
